@@ -1,6 +1,7 @@
 package ru.test.jdbc.user.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.test.jdbc.user.model.User;
 
 import java.util.List;
@@ -10,27 +11,27 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UsersService {
-    @Override
+    @Transactional
     public int addUser(User user) {
         return 0;
     }
 
-    @Override
+    @Transactional
     public User getUserById(int id) {
         return null;
     }
 
-    @Override
+    @Transactional
     public List<User> getAllUsers() {
         return null;
     }
 
-    @Override
+    @Transactional
     public List<User> getUsersBySex(String sex) {
         return null;
     }
 
-    @Override
+    @Transactional
     public List<User> getUsersByAge(int age) {
         return null;
     }

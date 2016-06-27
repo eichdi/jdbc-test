@@ -18,6 +18,14 @@ public class UserDaoDBImpl implements UsersDao, InitializingBean {
     private DataSource dataSource;
     private NamedParameterJdbcTemplate jdbcTemplate;
 
+    private static final String selectAllSql = "SELECT * FROM userInfo";
+    private static final String selectByNameSql = "SELECT * FROM userInfo WHERE name=:userName";
+    private static final String selectNameByIdSql = "SELECT name FROM userInfo WHERE id = :userId";
+    private static final String selectUserByIdSql = "SELECT name, info, email, bornyear, sex FROM userInfo WHERE id = :userId";
+    private static final String insertUserSql = "INSERT INTO userInfo (name, info, email, bornyear, sex) values (:userName+, :userInfo, :userEmail, :userBornyear, :userSex)";
+    private static final String updeteUserSql = "UPDATE userInfo SET name = :userName, info = :userInfo, email = :userEmail, bornyear = :userBornyear, sex = :userSex WHERE id = :userId";
+    private static final String deleteUserSql = "DELETE FROM userInfo WHERE id = :userId";
+
     @Resource(name = "dataSource")
     public void setDataSource(DataSource dataSource){
         this.dataSource = dataSource;
@@ -26,26 +34,23 @@ public class UserDaoDBImpl implements UsersDao, InitializingBean {
 
     @Override
     public List<User> findAll() {
-        String sql = "SELECT * FROM \"user\"";
-        return jdbcTemplate.query(sql,new HashMap(),new UserMapper());
+        return jdbcTemplate.query(selectAllSql,new HashMap(),new UserMapper());
     }
 
     @Override
     public List<User> findByName(String name) {
-        String sql = "SELECT * FROM \"user\" WHERE name=:userName";
         Map<String, String> namedParam= new HashMap<>();
         namedParam.put("userName",name);
-        return jdbcTemplate.query(sql, namedParam, new UserMapper());
+        return jdbcTemplate.query(selectByNameSql, namedParam, new UserMapper());
     }
 
     public String findNameById(Long id){
-        String sql = "SELECT name FROM \"user\" WHERE id = :userId";
         Map<String, Object> namedParam = new HashMap<>();
         namedParam.put("userId",id);
         String result;
         //на случай если нет такого id
         try{
-            result = (String) jdbcTemplate.queryForObject(sql,namedParam,String.class);
+            result = (String) jdbcTemplate.queryForObject(selectNameByIdSql,namedParam,String.class);
         }
         catch (Exception e){
             result = "noresult";
@@ -55,17 +60,14 @@ public class UserDaoDBImpl implements UsersDao, InitializingBean {
 
     @Override
     public User findeUserById(Long id) {
-        String sql = "SELECT name, info, email, bornyear, sex FROM \"user\" WHERE id = :userId";
         Map<String, Object> namedParam= new HashMap<>();
         namedParam.put("userId",id);
-        List<User> resultList =  jdbcTemplate.query(sql, namedParam, new UserMapper());
+        List<User> resultList =  jdbcTemplate.query(selectUserByIdSql, namedParam, new UserMapper());
         return resultList.get(0);
     }
 
     @Override
     public void insert(User user) {
-        String sql = "INSERT INTO \"user\" (name, info, email, bornyear, sex) values (:userName+, :userInfo, :userEmail, :userBornyear, :userSex)";
-
         Map<String, Object> namedParam = new HashMap<>();
         //TODO вынести заполнение карты
         namedParam.put("userName", user.getName());
@@ -74,13 +76,11 @@ public class UserDaoDBImpl implements UsersDao, InitializingBean {
         namedParam.put("userBornyear", user.getBornYear());
         namedParam.put("userSex", user.isSex());
 
-        jdbcTemplate.update(sql,namedParam);
+        jdbcTemplate.update(insertUserSql,namedParam);
     }
 
     @Override
     public void update(User user, Long id) {
-        String sql = "UPDATE \"user\" SET name = :userName, info = :userInfo, email = :userEmail, bornyear = :userBornyear, sex = :userSex WHERE id = :userId";
-
         Map<String, Object> namedParam = new HashMap<>();
         //TODO вынести заполнение карты
         namedParam.put("userName", user.getName());
@@ -90,7 +90,7 @@ public class UserDaoDBImpl implements UsersDao, InitializingBean {
         namedParam.put("userSex", user.isSex());
         namedParam.put("userId",id);
 
-        jdbcTemplate.update(sql,namedParam);
+        jdbcTemplate.update(updeteUserSql,namedParam);
     }
 
     @Override
@@ -100,11 +100,10 @@ public class UserDaoDBImpl implements UsersDao, InitializingBean {
 
     @Override
     public void delete(Long id) {
-        String sql = "DELETE FROM \"user\" WHERE id = :userId";
         Map<String, Object> namedParam = new HashMap<>();
         namedParam.put("userId",id);
 
-        jdbcTemplate.update(sql,namedParam);
+        jdbcTemplate.update(deleteUserSql,namedParam);
     }
 
     //Реализация InitializingBean
