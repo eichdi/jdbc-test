@@ -2,6 +2,8 @@ package ru.test.jdbc;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+import ru.test.jdbc.user.dao.UserDaoDBImpl;
 import ru.test.jdbc.user.dao.UsersDao;
 import ru.test.jdbc.user.model.User;
 
@@ -12,11 +14,11 @@ import java.util.List;
  */
 public class Program {
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
-        UsersDao usersDao = applicationContext.getBean("userDao", UsersDao.class);
-        List<User> userList = usersDao.findByName("Igor");
-        usersDao.delete(userList.get(0));
-        userList = usersDao.findAll();
+        GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
+        ctx.load("classpath:beans.xml");
+        ctx.refresh();
+        UsersDao usersDao = ctx.getBean("usersDao", UsersDao.class);
+        List<User> userList = usersDao.findAll();
         for (User user :
                 userList) {
             System.out.print(user.toString());

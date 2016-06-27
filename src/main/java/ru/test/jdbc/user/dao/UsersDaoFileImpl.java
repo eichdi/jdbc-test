@@ -1,4 +1,4 @@
-package ru.test.jdbc.user.dao.fileImpl;
+package ru.test.jdbc.user.dao;
 
 import ru.test.jdbc.user.dao.UsersDao;
 import ru.test.jdbc.user.model.User;

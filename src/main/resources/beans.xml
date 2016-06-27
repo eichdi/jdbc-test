@@ -11,5 +11,5 @@
           p:username="${jdbc.username}"
           p:password="${jdbc.password}"/>
 
-    <bean id = "userDao" class="ru.test.jdbc.user.dao.dataBaseImp.UserDaoDBImpl" p:dataSource-ref="dataSource"/>
+    <context:component-scan base-package="ru.test.jdbc.user.dao"/>
 </beans>
