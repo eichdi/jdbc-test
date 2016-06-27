@@ -1,4 +1,4 @@
-package ru.test.jdbc.user.dao.dataBaseImp;
+package ru.test.jdbc.user.dao;
 
 import org.springframework.jdbc.core.RowMapper;
 import ru.test.jdbc.user.model.User;
