@@ -1,7 +1,9 @@
 package ru.test.jdbc.user.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.test.jdbc.user.dao.UsersDao;
 import ru.test.jdbc.user.model.User;
 
 import java.util.List;
@@ -11,27 +13,26 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UsersService {
-    @Transactional
+
+    @Autowired
+    private UsersDao userDao;
+
     public int addUser(User user) {
         return 0;
     }
 
-    @Transactional
     public User getUserById(int id) {
         return null;
     }
 
-    @Transactional
     public List<User> getAllUsers() {
-        return null;
+        return userDao.findAll();
     }
 
-    @Transactional
     public List<User> getUsersBySex(String sex) {
         return null;
     }
 
-    @Transactional
     public List<User> getUsersByAge(int age) {
         return null;
     }

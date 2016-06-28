@@ -2,6 +2,7 @@ package ru.test.jdbc.user.dao;
 
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.test.jdbc.user.model.User;
@@ -12,19 +13,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository("usersDao")
+@Repository
 public class UserDaoDBImpl implements UsersDao, InitializingBean {
 
+    @Autowired
     private DataSource dataSource;
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    private static final String selectAllSql = "SELECT * FROM userInfo";
-    private static final String selectByNameSql = "SELECT * FROM userInfo WHERE name=:userName";
-    private static final String selectNameByIdSql = "SELECT name FROM userInfo WHERE id = :userId";
-    private static final String selectUserByIdSql = "SELECT name, info, email, bornyear, sex FROM userInfo WHERE id = :userId";
-    private static final String insertUserSql = "INSERT INTO userInfo (name, info, email, bornyear, sex) values (:userName+, :userInfo, :userEmail, :userBornyear, :userSex)";
-    private static final String updeteUserSql = "UPDATE userInfo SET name = :userName, info = :userInfo, email = :userEmail, bornyear = :userBornyear, sex = :userSex WHERE id = :userId";
-    private static final String deleteUserSql = "DELETE FROM userInfo WHERE id = :userId";
+    private static final String selectAllSql = "SELECT * FROM userinfo ";
+    private static final String selectByNameSql = "SELECT * FROM userinfo WHERE name=:userName";
+    private static final String selectNameByIdSql = "SELECT name FROM userinfo WHERE id = :userId";
+    private static final String selectUserByIdSql = "SELECT name, info, email, bornyear, sex FROM userinfo WHERE id = :userId";
+    private static final String insertUserSql = "INSERT INTO userinfo (name, info, email, bornyear, sex) values (:userName+, :userInfo, :userEmail, :userBornyear, :userSex)";
+    private static final String updeteUserSql = "UPDATE userinfo SET name = :userName, info = :userInfo, email = :userEmail, bornyear = :userBornyear, sex = :userSex WHERE id = :userId";
+    private static final String deleteUserSql = "DELETE FROM userinfo WHERE id = :userId";
 
     @Resource(name = "dataSource")
     public void setDataSource(DataSource dataSource){
