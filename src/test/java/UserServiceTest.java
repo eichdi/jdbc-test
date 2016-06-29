@@ -4,17 +4,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import ru.test.jdbc.user.controllers.UserController;
 import ru.test.jdbc.user.dao.UsersDao;
 import ru.test.jdbc.user.model.User;
 import ru.test.jdbc.user.service.UserServiceImpl;
-import ru.test.jdbc.user.service.UsersService;
 
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
+import static org.junit.Assert.*;
 /**
  * Created by SOTI on 29.06.2016 17:45.
  */
@@ -28,9 +24,20 @@ public class UserServiceTest {
     @InjectMocks
     private UserServiceImpl service;
 
+    public void UserEquals(User expected, User actual){
+        assertEquals(expected.getBornYear(),actual.getBornYear());
+        assertEquals(expected.getEmail(),actual.getEmail());
+        assertEquals(expected.getInfo(),actual.getInfo());
+        assertEquals(expected.getName(),actual.getName());
+        assertEquals(expected.isSex(),actual.isSex());
+        assertEquals(expected.isSex(),actual.isSex());
+        assertEquals(expected.getId(),actual.getId());
+    }
+
     public UserServiceTest(){
 
     }
+
 
     public static User anyUser (){
         return new User("name","info","email",1,2000,true);
@@ -43,8 +50,9 @@ public class UserServiceTest {
 
     @Test
     public void testGetUserById(){
-        User user = service.getUserById(anyInt());
-        verify(usersDao).findeUserById(0);
+        User actual = service.getUserById(anyInt());
+        User expected = anyUser();
+        UserEquals(expected, actual);
     }
 
 }
