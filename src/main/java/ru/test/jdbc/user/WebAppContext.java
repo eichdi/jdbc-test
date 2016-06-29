@@ -32,6 +32,8 @@ public class WebAppContext extends WebMvcConfigurerAdapter {
             dataSource.setPassword(props.getProperty("jdbc.password"));
         }
         catch (IOException e){
+            //default values
+            System.out.print("jdbc.properties not found");
             dataSource.setDriverClassName("org.postgresql.Driver");
             dataSource.setUrl("jdbc:postgresql://localhost:5432/dbtest");
             dataSource.setUsername("root");
