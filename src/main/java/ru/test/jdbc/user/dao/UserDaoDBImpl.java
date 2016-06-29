@@ -1,5 +1,7 @@
 package ru.test.jdbc.user.dao;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ public class UserDaoDBImpl implements UsersDao, InitializingBean {
     @Autowired
     private DataSource dataSource;
     private NamedParameterJdbcTemplate jdbcTemplate;
+    private static final Log log = LogFactory.getLog(UserDaoDBImpl.class);
 
     private static final String selectAllSql = "SELECT * FROM userinfo ";
     private static final String selectByNameSql = "SELECT * FROM userinfo WHERE name=:userName";
@@ -36,6 +39,7 @@ public class UserDaoDBImpl implements UsersDao, InitializingBean {
 
     @Override
     public List<User> findAll() {
+        log.info("findAll");
         return jdbcTemplate.query(selectAllSql,new HashMap(),new UserMapper());
     }
 

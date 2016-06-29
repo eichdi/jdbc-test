@@ -37,7 +37,7 @@ public class UserController {
     @RequestMapping(value = "/")
     String startPage(){
         System.out.print("it`s work!");
-        return "start1";
+        return "start2";
     }
     //@RequestMapping(value = "/user")
 

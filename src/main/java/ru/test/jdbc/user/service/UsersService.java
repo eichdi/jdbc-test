@@ -12,7 +12,5 @@ public interface UsersService {
 
     List<User> getAllUsers();
 
-    List<User> getUsersBySex(String sex);
-
-    List<User> getUsersByAge(int age);
+    String getNameById(int id);
 }

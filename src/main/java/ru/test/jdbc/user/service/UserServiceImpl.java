@@ -17,23 +17,26 @@ public class UserServiceImpl implements UsersService {
     @Autowired
     private UsersDao userDao;
 
+    @Override
     public int addUser(User user) {
+        userDao.insert(user);
         return 0;
     }
 
+    @Override
     public User getUserById(int id) {
-        return null;
+        return userDao.findeUserById((long) id);
     }
 
+    @Override
     public List<User> getAllUsers() {
         return userDao.findAll();
     }
 
-    public List<User> getUsersBySex(String sex) {
-        return null;
+    @Override
+    public String getNameById(int id) {
+        return userDao.findNameById((long) id);
     }
 
-    public List<User> getUsersByAge(int age) {
-        return null;
-    }
+
 }
