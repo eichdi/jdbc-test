@@ -27,7 +27,6 @@ public class UserController {
     @Qualifier("userServiceImpl")
     public UsersService service;
 
-    public static final Logger log = Logger.getLogger(UserController.class);
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     ResponseEntity<List<User>> getAllUsers(){
@@ -36,15 +35,13 @@ public class UserController {
 
     @RequestMapping(value = "user/{id}", method = RequestMethod.GET)
     ResponseEntity<User> getUserById(@PathVariable int id){
-        log.info("getUserBy id="+id);
-
         return  new ResponseEntity(service.getUserById(id), null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/")
     String startPage(){
         System.out.print("it`s work!");
-        return "start3";
+        return "start4";
     }
     //@RequestMapping(value = "/user")
 

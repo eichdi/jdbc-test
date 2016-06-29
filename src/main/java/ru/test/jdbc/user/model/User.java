@@ -22,7 +22,6 @@ public class User {
         this.name = name;
         this.info = info;
         this.email = email;
-        this.id = id;
         this.bornYear = bornYear;
         this.sex = sex;
     }
