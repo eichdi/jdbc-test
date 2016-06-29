@@ -4,13 +4,13 @@ package ru.test.jdbc.user.model;
  * Created by SOTI on 25.05.2016.
  */
 public class User {
-    private Long id;
+    private int id;
     private String name;
     private String info;
     private String email;
     private int bornYear;
     private boolean sex; //0-female 1-male
-    public User(String name, String info, String email, Long id, int bornYear, boolean sex){
+    public User(String name, String info, String email, int id, int bornYear, boolean sex){
         this.name = name;
         this.info = info;
         this.email = email;
@@ -63,7 +63,7 @@ public class User {
         this.sex = sex;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

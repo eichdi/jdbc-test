@@ -16,7 +16,7 @@ public class UserMapper implements RowMapper {
                 resultSet.getString("name"),
                 resultSet.getString("info"),
                 resultSet.getString("email"),
-                resultSet.getLong("id"),
+                resultSet.getInt("id"),
                 resultSet.getInt("bornyear"),
                 resultSet.getBoolean("sex"));
         return user;

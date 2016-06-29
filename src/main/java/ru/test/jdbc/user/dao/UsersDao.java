@@ -10,10 +10,10 @@ import java.util.List;
 public interface UsersDao {
     List findAll();
     List<User> findByName(String name);
-    String findNameById(Long id);
-    User findeUserById(Long id);
+    String findNameById(int id);
+    User findeUserById(int id);
     void insert(User user);
-    void update(User user, Long id);
+    void update(User user, int id);
     void delete(User user);
-    void delete(Long id);
+    void delete(int id);
 }
